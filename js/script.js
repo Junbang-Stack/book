@@ -1,80 +1,81 @@
-// 初始化模态框
-const modal = document.getElementById('modal');
-const closeBtn = document.querySelector('.close');
-
-closeBtn.onclick = () => modal.style.display = 'none';
-window.onclick = (e) => e.target == modal && (modal.style.display = 'none');
+const results = {
+    '圣卦': {
+        hexagram: '䷀',
+        color: '#27ae60',
+        interpretation: '乾为天，刚健中正。',
+        advice: '宜：开拓创新\n忌：固步自封',
+        classic: '《周易·乾卦》：元亨利贞。大明终始，六位时成。'
+    },
+    '阳卦': {
+        hexagram: '䷊',
+        color: '#f1c40f', 
+        interpretation: '天地交泰，阴阳和合。',
+        advice: '宜：稳中求进\n忌：急功近利',
+        classic: '《周易·泰卦》：小往大来，吉亨。'
+    },
+    '阴卦': {
+        hexagram: '䷁',
+        color: '#7f8c8d',
+        interpretation: '坤厚载物，德合无疆。',
+        advice: '宜：厚积薄发\n忌：贸然行动',
+        classic: '《周易·坤卦》：君子以厚德载物。'
+    }
+};
 
 function startDivination() {
-    const btn = document.getElementById('startBtn');
-    btn.disabled = true;
-    btn.style.opacity = '0.6';
-    
     const horns = document.querySelectorAll('.horn');
+    const btn = document.querySelector('.start-btn');
+    
+    // 禁用按钮
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    
+    // 启动动画
     horns.forEach(horn => {
         horn.style.animation = 'none';
         horn.offsetHeight; // 触发重绘
-        horn.classList.remove('spinning');
+        horn.classList.add('horn-animate');
     });
 
-    // 高级动画处理
-    anime({
-        targets: '.horn',
-        opacity: [1, 0],
-        translateY: [0, 600],
-        rotate: {
-            value: ['0deg', '1440deg'],
-            easing: 'easeInOutQuad'
-        },
-        duration: 1800,
-        delay: anime.stagger(200),
-        begin: () => {
-            horns.forEach(horn => horn.classList.add('spinning'));
-        }
-    });
-
-    // 显示结果
+    // 获取结果
     setTimeout(() => {
-        const results = {
-            '圣卦': {
-                interpretation: '✨ 大吉之兆！神明认可，所求之事可成。',
-                advice: '宜：积极行动、把握机遇\n忌：犹豫不决、错失良机',
-                classic: '《易经·乾卦》：元亨利贞。大哉乾元，万物资始，乃统天。',
-                color: '#27ae60'
-            },
-            '阳卦': {
-                interpretation: '🌤 平顺之兆，阴阳和合',
-                advice: '宜：维持现状、观察时机\n忌：贸然行动、重大决策',
-                classic: '《易经·泰卦》：天地交，泰。后以财成天地之道，辅相天地之宜。',
-                color: '#f1c40f'
-            },
-            '阴卦': {
-                interpretation: '🌙 谨慎之兆，潜龙勿用',
-                advice: '宜：三思后行、积蓄力量\n忌：冒险投机、轻信他人',
-                classic: '《易经·坤卦》：地势坤，君子以厚德载物。',
-                color: '#7f8c8d'
-            }
-        };
-        
         const resultKeys = Object.keys(results);
-        const result = results[resultKeys[Math.floor(Math.random() * resultKeys.length)]];
-        
-        const resultHtml = `
-            <div class="result-header" style="color: ${result.color}">
-                <h3>${result.interpretation}</h3>
-            </div>
-            <div class="result-body">
-                <p>${result.advice.replace(/\n/g, '<br>')}</p>
-                <div class="classic-reference">
-                    <h4>《易经》参考</h4>
-                    <p>${result.classic}</p>
-                </div>
-            </div>
-        `;
-        
-        modal.style.display = 'block';
-        document.getElementById('result-text').innerHTML = resultHtml;
+        const resultName = resultKeys[Math.floor(Math.random() * resultKeys.length)];
+        showResult(results[resultName]);
         btn.disabled = false;
         btn.style.opacity = '1';
     }, 2000);
+}
+
+function showResult(result) {
+    const modal = document.getElementById('modal');
+    const content = `
+        <div class="hexagram" style="color:${result.color}">${result.hexagram}</div>
+        <div class="interpretation">
+            <h3>${result.interpretation}</h3>
+        </div>
+        <div class="advice">
+            <p>${result.advice.replace(/\n/g, '<br>')}</p>
+        </div>
+        <div class="classic">${result.classic}</div>
+    `;
+    
+    document.getElementById('result').innerHTML = content;
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+    // 重置牛角位置
+    document.querySelectorAll('.horn').forEach(horn => {
+        horn.classList.remove('horn-animate');
+    });
+}
+
+// 点击外部关闭弹窗
+window.onclick = function(event) {
+    const modal = document.getElementById('modal');
+    if (event.target == modal) {
+        closeModal();
+    }
 }
