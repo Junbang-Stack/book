@@ -3,32 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>掷杯筊占卜</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>牛角占卜</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>掷杯筊占卜</h1>
+        <h1>牛角卦占卜</h1>
         
         <div class="altar">
-            <div id="horn1" class="horn">
-                <div class="horn-top"></div>
-                <div class="horn-bottom"></div>
-            </div>
-            <div id="horn2" class="horn">
-                <div class="horn-top"></div>
-                <div class="horn-bottom"></div>
+            <div class="horns-container">
+                <div id="horn1" class="horn">
+                    <div class="horn-top"></div>
+                    <div class="horn-bottom"></div>
+                </div>
+                <div id="horn2" class="horn">
+                    <div class="horn-top"></div>
+                    <div class="horn-bottom"></div>
+                </div>
             </div>
         </div>
 
         <button id="startBtn" onclick="startDivination()">开始占卜</button>
-        
-        <div id="result" class="result">
+    </div>
+
+    <!-- 弹窗模态框 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
             <h2>卦象解读</h2>
-            <p id="result-text"></p>
+            <div id="result-text" class="result-text"></div>
+            <div class="classic-reference">
+                <h3>《易经》参考</h3>
+                <p id="classic-text"></p>
+            </div>
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
