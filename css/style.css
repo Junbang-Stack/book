@@ -63,7 +63,7 @@ body {
     transform: rotate(25deg) skewX(10deg);
 }
 
-/* 牛角底部样式 */
+/* 牛角底部样式绘制 */
 .horn-bottom {
     position: absolute;
     width: 100%;
