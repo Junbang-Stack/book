@@ -11,7 +11,7 @@ function startDivination() {
         horn.classList.remove('spinning');
     });
 
-    // 开始动画
+    // 开始动画start
     horns.forEach((horn, index) => {
         setTimeout(() => {
             horn.classList.add('spinning');
