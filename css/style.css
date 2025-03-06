@@ -1,16 +1,17 @@
 :root {
-    --gold: #ffd700;
-    --wood: #8b4513;
-    --duration: 1.8s;
+    --bronze: #8B7355;
+    --wood: #3E2723;
+    --gold: #FFD700;
+    --duration: 2s;
 }
 
 body {
-    font-family: 'Microsoft YaHei', sans-serif;
-    background: #1a1a1a radial-gradient(circle at center, #2c3e50 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
     color: #f0f0f0;
+    font-family: 'Microsoft YaHei', sans-serif;
+    min-height: 100vh;
     margin: 0;
     padding: 20px;
-    min-height: 100vh;
 }
 
 .container {
@@ -19,76 +20,99 @@ body {
     text-align: center;
 }
 
+.header {
+    margin-bottom: 2rem;
+}
+
+.subtitle {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9em;
+}
+
 .altar {
     position: relative;
     height: 400px;
-    margin: 50px 0;
+    margin: 2rem 0;
     perspective: 1000px;
 }
 
-.horns-container {
+.horns {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
+    width: 300px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .horn {
     position: absolute;
-    width: 120px;
-    height: 180px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-/* 3D牛角动画 */
-.horn-top::before,
-.horn-top::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 100px;
-    background: linear-gradient(45deg, 
-        var(--gold) 20%, 
-        #daa520 50%, 
-        #b8860b 100%);
-    border-radius: 15px 15px 0 0;
-    transform-origin: bottom center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation: horn-glow 2s ease-in-out infinite;
-}
-
-@keyframes horn-glow {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.2); }
-}
-
-.horn-top::before {
-    left: 0;
-    transform: rotate(-30deg) skewX(-10deg) translateY(5px);
-}
-
-.horn-top::after {
-    right: 0;
-    transform: rotate(30deg) skewX(10deg) translateY(5px);
-}
-
-.horn-bottom::before {
-    content: '';
-    position: absolute;
     width: 80px;
-    height: 40px;
-    background: var(--wood);
-    border-radius: 50%;
-    bottom: 0;
+    filter: drop-shadow(0 0 8px rgba(139, 115, 85, 0.5));
+    transition: all 0.5s ease;
+}
+
+.left {
+    left: 30px;
+    transform-origin: bottom right;
+}
+
+.right {
+    right: 30px;
+    transform-origin: bottom left;
+    transform: scaleX(-1);
+}
+
+.base {
+    position: absolute;
+    width: 120px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: inset 0 10px 20px rgba(0,0,0,0.3);
+    filter: drop-shadow(0 0 10px rgba(62, 39, 35, 0.6));
 }
 
-/* 弹窗样式 */
+.start-btn {
+    background: linear-gradient(135deg, var(--wood) 0%, var(--bronze) 100%);
+    color: var(--gold);
+    padding: 1rem 2rem;
+    border: 2px solid var(--bronze);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(139, 115, 85, 0.4);
+}
+
+/* 高级动画 */
+@keyframes hornFall {
+    0% {
+        transform: rotate(0deg) translateY(0);
+        opacity: 1;
+    }
+    40% {
+        transform: rotate(720deg) translateY(-100px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: rotate(1440deg) translateY(500px);
+        opacity: 0;
+    }
+}
+
+.horn-animate {
+    animation: hornFall var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 专业弹窗 */
 .modal {
     display: none;
     position: fixed;
@@ -102,62 +126,31 @@ body {
 
 .modal-content {
     position: relative;
-    background: #2c3e50;
+    background: linear-gradient(145deg, #2c3e50 0%, #34495e 100%);
     margin: 5% auto;
-    padding: 25px;
-    width: 80%;
-    max-width: 500px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 15px;
+    border: 1px solid var(--bronze);
+    box-shadow: 0 0 20px rgba(139, 115, 85, 0.3);
+}
+
+.result-box {
+    background: rgba(0,0,0,0.3);
+    padding: 1.5rem;
     border-radius: 10px;
-    animation: modalOpen 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-@keyframes modalOpen {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+.hexagram {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-.close {
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    font-size: 28px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.close:hover {
-    color: var(--gold);
-}
-
-.result-text {
-    font-size: 18px;
-    line-height: 1.6;
-    margin: 20px 0;
-}
-
-.classic-reference {
-    background: rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-/* 优化动画 */
-@keyframes horn-fall {
-    0% {
-        transform: translate(-50%, -50%) rotateX(0) rotateZ(0);
-        opacity: 1;
-    }
-    40% {
-        transform: translate(-50%, -50%) rotateX(720deg) rotateZ(180deg) scale(1.5);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translate(calc(-50% + 300px), 600px) rotateX(1440deg) rotateZ(360deg);
-        opacity: 0;
-    }
-}
-
-.spinning {
-    animation: horn-fall var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.classic {
+    font-style: italic;
+    color: rgba(255,255,255,0.8);
+    margin-top: 1rem;
+    border-left: 3px solid var(--bronze);
+    padding-left: 1rem;
 }
