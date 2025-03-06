@@ -3,42 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>牛角占卜</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <title>灵犀牛角卦</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>">
 </head>
 <body>
     <div class="container">
-        <h1>牛角卦占卜</h1>
+        <div class="header">
+            <h1>灵犀牛角卦</h1>
+            <p class="subtitle">古法数字占卜系统</p>
+        </div>
         
         <div class="altar">
-            <div class="horns-container">
-                <div id="horn1" class="horn">
-                    <div class="horn-top"></div>
-                    <div class="horn-bottom"></div>
-                </div>
-                <div id="horn2" class="horn">
-                    <div class="horn-top"></div>
-                    <div class="horn-bottom"></div>
-                </div>
+            <div class="horns">
+                <img src="images/horn.png" class="horn left" alt="左牛角">
+                <img src="images/base.png" class="base" alt="卦盘">
+                <img src="images/horn.png" class="horn right" alt="右牛角">
             </div>
         </div>
 
-        <button id="startBtn" onclick="startDivination()">开始占卜</button>
+        <button class="start-btn" onclick="startDivination()">
+            <span class="icon">🔼</span>
+            <span>启 动 占 卜</span>
+        </button>
     </div>
 
-    <!-- 弹窗模态框 -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>卦象解读</h2>
-            <div id="result-text" class="result-text"></div>
-            <div class="classic-reference">
-                <h3>《易经》参考</h3>
-                <p id="classic-text"></p>
+            <div class="modal-header">
+                <h2>卦象解析</h2>
+                <span class="close" onclick="closeModal()">×</span>
+            </div>
+            <div class="modal-body">
+                <div id="result" class="result-box">
+                    <div class="hexagram"></div>
+                    <div class="interpretation"></div>
+                    <div class="advice"></div>
+                    <div class="classic"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="./js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
